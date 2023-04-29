@@ -12,10 +12,12 @@
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "wrap-in-comment.helloWorld",
-      "title": "Hello World"
-    }]
+    "commands": [
+      {
+        "command": "wrap-in-comment.wrap-in-comment",
+        "title": "Wrap in comment"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
