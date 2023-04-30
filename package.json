@@ -1,10 +1,15 @@
 {
   "name": "wrap-in-comment",
+  "publisher": "misbahansori",
   "displayName": "wrap-in-comment",
   "description": "Wrap code inside comments",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.77.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/misbahansori/wrap-in-comment"
   },
   "categories": [
     "Other"
