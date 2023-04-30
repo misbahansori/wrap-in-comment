@@ -1,7 +1,9 @@
 # VSCode Extension: Wrap in Comment
+![Alt text](img/example.gif)
 
 ## Description
 This extension wraps the selected HTML text in a comment. It is useful for adding comments before and after a block of HTML code.
+
 
 ## Usage
 1. Select the text you want to wrap in a comment.
