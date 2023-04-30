@@ -58,20 +58,20 @@ function activate(context) {
         editBuilder.insert(end, `\n${" ".repeat(indent)}${endComment}`);
       });
 
+      const startPosition = new vscode.Position(
+        start.line,
+        indent + 5 + startWord.length
+      );
+
+      const endPosition = new vscode.Position(
+        end.line + 2,
+        indent + 5 + endWord.length
+      );
+
       // Place multiple cursor in the start comment and end comment
       editor.selections = [
-        new vscode.Selection(
-          start.line,
-          indent + 5 + startWord.length,
-          start.line,
-          indent + 5 + startWord.length
-        ),
-        new vscode.Selection(
-          end.line + 2,
-          indent + 5 + endWord.length,
-          end.line + 2,
-          indent + 5 + endWord.length
-        ),
+        new vscode.Selection(startPosition, startPosition),
+        new vscode.Selection(endPosition, endPosition),
       ];
 
       // Display a message box to the user
