@@ -22,30 +22,57 @@ function activate(context) {
     "wrap-in-comment.wrap-in-comment",
     function () {
       // The code you place here will be executed every time your command is executed
+
       // Get the active text editor
       const editor = vscode.window.activeTextEditor;
+
       if (!editor) {
         vscode.window.showInformationMessage("No editor is active");
         return; // No open text editor
       }
 
-      const startComment = "<!-- Start of -->";
-      const endComment = "<!-- End of -->";
+      const startWord = "Start of";
+      const endWord = "End of";
+
+      const startComment = `<!-- ${startWord} -->`;
+      const endComment = `<!-- ${endWord} -->`;
+
       // Get the document
       const doc = editor.document;
+      const selection = editor.selection;
+
       // Get the line number before and the selection
-      const start = doc.lineAt(editor.selection.start).range.start;
+      const start = doc.lineAt(selection.start).range.start;
+      const end = doc.lineAt(selection.end).range.end;
+
       // make sure the indentation is correct
-      const startIndent = doc.lineAt(
-        editor.selection.start
+      const indent = doc.lineAt(
+        selection.start
       ).firstNonWhitespaceCharacterIndex;
-      // Insert HTML comment in a new line before the selection with the correct indentation
+
       editor.edit((editBuilder) => {
-        editBuilder.insert(
-          start,
-          `${" ".repeat(startIndent)}${startComment}\n`
-        );
+        // Insert HTML comment in a new line before the selection with the correct indentation
+        editBuilder.insert(start, `${" ".repeat(indent)}${startComment}\n`);
+
+        // Insert HTML comment in a new line after the selection with the correct indentation
+        editBuilder.insert(end, `\n${" ".repeat(indent)}${endComment}`);
       });
+
+      // Place multiple cursor in the start comment and end comment
+      editor.selections = [
+        new vscode.Selection(
+          start.line,
+          indent + 5 + startWord.length,
+          start.line,
+          indent + 5 + startWord.length
+        ),
+        new vscode.Selection(
+          end.line + 2,
+          indent + 5 + endWord.length,
+          end.line + 2,
+          indent + 5 + endWord.length
+        ),
+      ];
 
       // Display a message box to the user
       vscode.window.showInformationMessage("Hello World from wrap-in-comment!");
