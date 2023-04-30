@@ -17,6 +17,13 @@
         "command": "wrap-in-comment.wrap-in-comment",
         "title": "Wrap in comment"
       }
+    ],
+    "keybindings": [
+      {
+        "command": "wrap-in-comment.wrap-in-comment",
+        "key": "ctrl+k ctrl+/",
+        "mac": "cmd+k cmd+/"
+      }
     ]
   },
   "scripts": {
