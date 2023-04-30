@@ -73,9 +73,6 @@ function activate(context) {
         new vscode.Selection(startPosition, startPosition),
         new vscode.Selection(endPosition, endPosition),
       ];
-
-      // Display a message box to the user
-      vscode.window.showInformationMessage("Hello World from wrap-in-comment!");
     }
   );
 
