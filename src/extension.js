@@ -9,21 +9,9 @@ const vscode = require("vscode");
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log(
-    'Congratulations, your extension "wrap-in-comment" is now active!'
-  );
-
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with  registerCommand
-  // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand(
     "wrap-in-comment.wrap-in-comment",
     function () {
-      // The code you place here will be executed every time your command is executed
-
-      // Get the active text editor
       const editor = vscode.window.activeTextEditor;
 
       if (!editor) {
@@ -37,24 +25,18 @@ function activate(context) {
       const startComment = `<!-- ${startWord} -->`;
       const endComment = `<!-- ${endWord} -->`;
 
-      // Get the document
       const doc = editor.document;
       const selection = editor.selection;
 
-      // Get the line number before and the selection
       const start = doc.lineAt(selection.start).range.start;
       const end = doc.lineAt(selection.end).range.end;
 
-      // make sure the indentation is correct
       const indent = doc.lineAt(
         selection.start
       ).firstNonWhitespaceCharacterIndex;
 
       editor.edit((editBuilder) => {
-        // Insert HTML comment in a new line before the selection with the correct indentation
         editBuilder.insert(start, `${" ".repeat(indent)}${startComment}\n`);
-
-        // Insert HTML comment in a new line after the selection with the correct indentation
         editBuilder.insert(end, `\n${" ".repeat(indent)}${endComment}`);
       });
 
@@ -68,7 +50,6 @@ function activate(context) {
         indent + 5 + endWord.length
       );
 
-      // Place multiple cursor in the start comment and end comment
       editor.selections = [
         new vscode.Selection(startPosition, startPosition),
         new vscode.Selection(endPosition, endPosition),
